@@ -1,0 +1,25 @@
+*****create a new directory in hdfs
+ [root@sandbox-hdp ~]#hadoop -fs -mkdir facebookdata 
+****load data into the file
+[root@sandbox-hdp ~]#hadoop -fs -put /pseudo_facebookdata.csv/  /facebookdata/
+*****loading data from hadoop to hive 
+hive>create table facebook(id int,age int,day int,year int,month int,gender string,tenure int,friends int,friend_init int,likes int,likes_r
+     ecd int,mlikes int,mlikes_recd int,wlikes int,wlikes_recd int)row format delimited fields  terminated by ',' stored as textfile location '/u
+     ser/root/facebookdata
+******to view the table first five contents
+hive>select * from facebook limit 5;  
+*******Total count of the facebook users
+hive>select count(*) from facebook;
+*****Total count of users age above 25
+hive>select count(*) from facebook where age>25;
+*******
+select avg(friends) from facebook where gender='male'; 
+6. select avg(friends) from facebook where gender='female'; 
+7.select gender,avg(friends) from facebook group by gender;  
+8.select avg(likes_recd) from facebook where age>=13 AND age<=25;
+9.select avg(likes_recd) from facebook where age>=35;   
+10.select month,count(*) from facebook group by month; 
+11.select avg(mlikes) from facebook where age>=13 and age<=25;  
+12.select avg(mlikes),avg(wlikes) from facebook where age>=13 and age<=2
+13.select avg(mlikes) from facebook where age>=35; 
+14. select avg(mlikes),avg(wlikes) from facebook where age>=35;   
